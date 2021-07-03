@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using LegacyMvcApp.Infrastructure;
+
 using System.Web.Mvc;
 
 namespace LegacyMvcApp.Controllers
@@ -20,6 +18,7 @@ namespace LegacyMvcApp.Controllers
             return View();
         }
 
+        [ComposeLayout]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
