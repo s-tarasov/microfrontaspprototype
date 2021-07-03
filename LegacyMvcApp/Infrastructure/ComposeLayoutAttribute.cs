@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -74,10 +75,13 @@ namespace LegacyMvcApp.Infrastructure
                 var appName = element.Name.LocalName.Split('-')[1];
                 var fragmentName = element.Name.LocalName.Split('-')[2];
                 var props = element.Attributes().ToDictionary(a => a.Name.LocalName, a => a.Value);
-                string html = GetFragmentHtmlAsync(appName, fragmentName, props).GetAwaiter().GetResult();
-                return startTag + html + endTag;
+                string innerHtml = GetFragmentHtmlAsync(appName, fragmentName, props).GetAwaiter().GetResult();
+                return startTag + innerHtml + endTag;
             });
         }
+
+        private static readonly Dictionary<string, string> _appsMap 
+            = JsonConvert.DeserializeObject<Dictionary<string, string>>(ConfigurationManager.AppSettings["AppsMap"]);
 
         private async static Task<string> GetFragmentHtmlAsync(string appName, string fragmentName, Dictionary<string, string> props)
         {            
@@ -85,8 +89,7 @@ namespace LegacyMvcApp.Infrastructure
             foreach (var prop in props)
                 queryStringParams.Add(prop.Key, prop.Value);
 
-            var appUrl = $"http://{appName}.localhost:777";
-            var fragmentUrl = appUrl + "/fragments/" + fragmentName + "?" + queryStringParams;
+            var fragmentUrl = $"{_appsMap[appName]}fragments/{fragmentName}/?{queryStringParams}";
 
             var httpClinet = new HttpClient();
             return await httpClinet.GetStringAsync(fragmentUrl).ConfigureAwait(false);
