@@ -6,11 +6,11 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Services.Protocols;
 using System.Xml.Linq;
 
 namespace LegacyMvcApp.Infrastructure
@@ -31,15 +31,20 @@ namespace LegacyMvcApp.Infrastructure
         /// </summary>
         /// <param name="filterContext">The filter context.</param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
-        {          
+        {
+            // Did we already injected something ?
+            if (filterContext.Result != null)
+            {
+                return; // No need to continue 
+            }
 
             // We are hooking into the pipeline to replace the response Output writer
-            // by something we own and later eventually gonna cache
-            var cachingWriter = new StringWriter(CultureInfo.InvariantCulture);
+            // by something we own
+            var templateWriter = new StringWriter(CultureInfo.InvariantCulture);
 
             var originalWriter = filterContext.HttpContext.Response.Output;
 
-            filterContext.HttpContext.Response.Output = cachingWriter;
+            filterContext.HttpContext.Response.Output = templateWriter;
 
             // Will be called back by OnResultExecuted -> ExecuteCallback
             filterContext.HttpContext.Items[_contextKey] = new Action<bool>(hasErrors =>
@@ -56,7 +61,7 @@ namespace LegacyMvcApp.Infrastructure
                 }
 
                 filterContext.HttpContext.Response.Write(
-                    RenderTemplate(cachingWriter.ToString(), filterContext)
+                    RenderTemplate(templateWriter.ToString(), filterContext)
                 );
             });
         }
@@ -92,6 +97,7 @@ namespace LegacyMvcApp.Infrastructure
             var fragmentUrl = $"{_appsMap[appName]}fragments/{fragmentName}/?{queryStringParams}";
 
             var httpClinet = new HttpClient();
+            httpClinet.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "@podium/client 4.4.29");
             return await httpClinet.GetStringAsync(fragmentUrl).ConfigureAwait(false);
         }
 

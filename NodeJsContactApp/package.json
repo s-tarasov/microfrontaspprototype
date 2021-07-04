@@ -1,0 +1,15 @@
+{
+  "name": "nodejscontactapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@podium/podlet": "^4.4.29",
+    "express": "^4.17.1"
+  }
+}
