@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -6,7 +7,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
@@ -61,17 +61,18 @@ namespace LegacyMvcApp.Infrastructure
                 }
 
                 filterContext.HttpContext.Response.Write(
-                    RenderTemplate(templateWriter.ToString(), filterContext)
+                    RenderLayout(templateWriter.ToString(), filterContext)
                 );
             });
         }
 
         private static readonly Regex _fragmentRegExp = new Regex(@"(<fragment-.*?-.*?>)(.*?)(<\/fragment-.*?-.*?>)", RegexOptions.Compiled | RegexOptions.Singleline);
 
-        private string RenderTemplate(string content, ControllerContext filterContext) 
+        private string RenderLayout(string content, ControllerContext filterContext) 
         {
-            
-            return _fragmentRegExp.Replace(content, match =>
+            var context = new LayoutContext();
+            return _fragmentRegExp
+                .Replace(content, match =>
             {
                 var fullTag = match.Groups[0].Value;
                 var startTag = match.Groups[1].Value; // <fragment-contact-address compact-form="false">
@@ -80,26 +81,51 @@ namespace LegacyMvcApp.Infrastructure
                 var appName = element.Name.LocalName.Split('-')[1];
                 var fragmentName = element.Name.LocalName.Split('-')[2];
                 var props = element.Attributes().ToDictionary(a => a.Name.LocalName, a => a.Value);
-                string innerHtml = GetFragmentHtmlAsync(appName, fragmentName, props).GetAwaiter().GetResult();
+                var manifest = GetFragmentManifestAsync(appName, fragmentName).GetAwaiter().GetResult();
+                AddAssetsToContext(context, manifest);
+                string innerHtml = GetFragmentHtmlAsync(manifest, props).GetAwaiter().GetResult();
                 return startTag + innerHtml + endTag;
-            });
+            })
+                .Replace("<!--EXTRACSS-->", string.Join("\n", context.Css.DistinctBy(k => k.Value)
+                    .Select(css => $@"<link href=""{css.Value}"" type=""{css.Type}"" rel=""{css.Rel}"">")))
+                .Replace("<!--EXTRAJS-->", string.Join("\n", context.Js.DistinctBy(k => k.Value)
+                    .Select(js => $@"<script src=""{js.Value}""></script>")));
+        }
+
+        private static void AddAssetsToContext(LayoutContext context, FragmentManifest manifest)
+        {
+            if (manifest.Css?.Length > 0)
+                context.Css.AddRange(manifest.Css);
+            if (manifest.Js?.Length > 0)
+                context.Js.AddRange(manifest.Js);
         }
 
         private static readonly Dictionary<string, string> _appsMap 
             = JsonConvert.DeserializeObject<Dictionary<string, string>>(ConfigurationManager.AppSettings["AppsMap"]);
 
-        private async static Task<string> GetFragmentHtmlAsync(string appName, string fragmentName, Dictionary<string, string> props)
-        {            
+        private async static Task<string> GetFragmentHtmlAsync(FragmentManifest fragmentManifest, Dictionary<string, string> props)
+        {
             var queryStringParams = HttpUtility.ParseQueryString(string.Empty);
             foreach (var prop in props)
                 queryStringParams.Add(prop.Key, prop.Value);
 
-            var fragmentUrl = $"{_appsMap[appName]}fragments/{fragmentName}/?{queryStringParams}";
+            var fragmentUrl = new Uri(new Uri(fragmentManifest.AppUrl), $"{fragmentManifest.Content}/?{queryStringParams}");
 
-            var httpClinet = new HttpClient();
-            httpClinet.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "@podium/client 4.4.29");
-            return await httpClinet.GetStringAsync(fragmentUrl).ConfigureAwait(false);
+            return await _httpClinet.GetStringAsync(fragmentUrl).ConfigureAwait(false);
         }
+
+        
+
+        private async static Task<FragmentManifest> GetFragmentManifestAsync(string appName, string fragmentName)
+        {
+            var manifestUrl = $"{_appsMap[appName]}fragments/{fragmentName}/";
+            var manifestJson = await _httpClinet.GetStringAsync(manifestUrl).ConfigureAwait(false);
+            var fragmentManifest = JsonConvert.DeserializeObject<FragmentManifest>(manifestJson);
+            fragmentManifest.AppUrl = _appsMap[appName];
+            return fragmentManifest;
+        }
+
+
 
         /// <summary>
         /// Called after an action result executes.
@@ -122,6 +148,14 @@ namespace LegacyMvcApp.Infrastructure
             {
                 callback.Invoke(hasErrors);
             }
+        }
+
+        private static readonly HttpClient _httpClinet = CreateClient();
+        private static HttpClient CreateClient()
+        {
+            var httpClinet = new HttpClient();
+            httpClinet.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", "@podium/client 4.4.29");
+            return httpClinet;
         }
     }
 }
