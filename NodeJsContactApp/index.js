@@ -1,7 +1,8 @@
 const express = require('express');
 const Podlet = require('@podium/podlet');
-const utils = require('@podium/utils');
+
 const addressFragment = require('./fragments/address/server');
+const view = require('./view');
 
 const app = express();
 
@@ -16,19 +17,7 @@ const podlet = new Podlet({
     development: true, // optional, defaults to false
 });
 
-podlet.view((incoming, body, head) => { return `<!doctype html>
-<html lang="${incoming.context.locale}">
-    <head>
-        <meta charset="${incoming.view.encoding}">
-        ${incoming.css.map(utils.buildLinkElement).join('\n')}
-    
-    </head>
-    <body>
-        ${body}
-        ${incoming.js.map(utils.buildScriptElement).join('\n')}
-    </body>
-</html>`;
-});
+podlet.view(view.view);
 
 app.use(podlet.middleware());
 

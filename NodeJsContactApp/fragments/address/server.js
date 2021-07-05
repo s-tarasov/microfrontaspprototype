@@ -9,9 +9,8 @@ function getTime() {
   return h2 + ":" + m2 + ":" + s2;
 }
 
-module.exports = {
-   renderAddressContent: function(req) {
-   	if (req.query["compact-form"] === 'true')
+function render(fragmentParams) {
+     if (fragmentParams["compact-form"] === 'true')
        return `
          NodeJsApp   <b>Это компактная форма</b>
        `;
@@ -20,9 +19,19 @@ module.exports = {
       NodeJsApp   <b>Это полная форма!!!</b>
 
          <div class="digital-clock">
-                <div id="a">`+ getTime() +`</div>
-                <div id="picture"></div>                
+                <div class="time">`+ getTime() +`</div>
+                <div class="picture"></div>                
          </div>
         `;
    }
+
+function renderAddressContent(request) { 
+ if (request.query["ssr"] === 'false')
+    return '';
+
+  return render(request.query) 
+};
+
+module.exports = {
+   renderAddressContent: renderAddressContent
 }

@@ -1,4 +1,4 @@
-#picture {
+fragment-contact-address .picture {
   width: 500px;
   height: 200px;
   position: absolute;
@@ -12,7 +12,7 @@
   background-image: -o-linear-gradient(top left, #FFFFFF 0%, #FF3333 100%);
   z-index: -1;
 }
-#a {
+fragment-contact-address .time {
   position: absolute;
   left: 50%;
   top: 50%;
