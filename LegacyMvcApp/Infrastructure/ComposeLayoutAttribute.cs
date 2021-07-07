@@ -116,7 +116,7 @@ namespace LegacyMvcApp.Infrastructure
 
         
 
-        private async static Task<FragmentManifest> GetFragmentManifestAsync(string appName, string fragmentName)
+        public async static Task<FragmentManifest> GetFragmentManifestAsync(string appName, string fragmentName)
         {
             var manifestUrl = $"{_appsMap[appName]}fragments/{fragmentName}/";
             var manifestJson = await _httpClinet.GetStringAsync(manifestUrl).ConfigureAwait(false);

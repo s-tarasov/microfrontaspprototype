@@ -4,6 +4,12 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
+@section scripts
+    {
+
+    @Scripts.Render("~/scripts/asset-loader.js")
+}
+
 <address>
     One Microsoft Way<br />
     Redmond, WA 98052-6399<br />
@@ -25,9 +31,14 @@
 
 <fragment-contact-address compact-form="true"></fragment-contact-address>
 
-<h4> карта </h4>
+<h4 id="map"> карта </h4>
+<div id="map-conatiner"></div>
+<script>
+    document.getElementById("map").onclick = () => {
+        document.getElementById("map-conatiner").appendChild(document.createElement("fragment-contact-map"))
+    }
+</script>
 
-<fragment-contact-map></fragment-contact-map>
 
 
 
