@@ -151,15 +151,15 @@ findNewFragments((nodeName) => {
         .then(res => res.json())
 		.then(manifest => {
 			var scripts = Array.from(document.getElementsByTagName('script'));
-			manifest.Js.forEach((js) => {
-				if (scripts.filter(e => e.src && e.src.indexOf(js.Value) !== -1).length === 0)
-					loadJS(js.Value, null, true);
+			manifest.js.forEach((js) => {
+				if (scripts.filter(e => e.src && e.src.indexOf(js.value) !== -1).length === 0)
+					loadJS(js.value, null, true);
 			});
 
 			var styles = Array.from(document.getElementsByTagName('link')).filter(l => l.rel === "stylesheet");
-			manifest.Css.forEach((css) => {
-				if (styles.filter(e => e.src && e.src.indexOf(css.Value) !== -1).length === 0)
-					loadCSS(css.Value);
+			manifest.css.forEach((css) => {
+				if (styles.filter(e => e.src && e.src.indexOf(css.value) !== -1).length === 0)
+					loadCSS(css.value);
 			});
         });
 });

@@ -100,7 +100,7 @@ namespace LegacyMvcApp.Infrastructure
                 context.Js.AddRange(manifest.Js);
         }
 
-        private static readonly Dictionary<string, string> _appsMap 
+        public static readonly Dictionary<string, string> AppsMap 
             = JsonConvert.DeserializeObject<Dictionary<string, string>>(ConfigurationManager.AppSettings["AppsMap"]);
 
         private async static Task<string> GetFragmentHtmlAsync(FragmentManifest fragmentManifest, Dictionary<string, string> props)
@@ -114,14 +114,14 @@ namespace LegacyMvcApp.Infrastructure
             return await _httpClinet.GetStringAsync(fragmentUrl).ConfigureAwait(false);
         }
 
-        
 
-        public async static Task<FragmentManifest> GetFragmentManifestAsync(string appName, string fragmentName)
+
+        private async static Task<FragmentManifest> GetFragmentManifestAsync(string appName, string fragmentName)
         {
-            var manifestUrl = $"{_appsMap[appName]}fragments/{fragmentName}/";
+            var manifestUrl = $"{AppsMap[appName]}fragments/{fragmentName}/";
             var manifestJson = await _httpClinet.GetStringAsync(manifestUrl).ConfigureAwait(false);
             var fragmentManifest = JsonConvert.DeserializeObject<FragmentManifest>(manifestJson);
-            fragmentManifest.AppUrl = _appsMap[appName];
+            fragmentManifest.AppUrl = AppsMap[appName];
             return fragmentManifest;
         }
 
