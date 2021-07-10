@@ -19,8 +19,8 @@ function setup(app)
 
 	app.use(podlet.middleware());
 
-	app.get(podlet.content(), (req, res) => {
-		res.status(200).podiumSend(serverPart.renderAddressContent(req));
+	app.get(podlet.content(), async (req, res) => {
+		res.status(200).podiumSend(await serverPart.renderAddressContent(req));
 	});
 
 	app.get(podlet.manifest(), (req, res) => {
