@@ -125,7 +125,7 @@
 function findNewFragments(onNewFragment) {
     var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
     var myObserver = new MutationObserver(mutationHandler);
-    var obsConfig = { childList: true, characterData: true, attributes: true, subtree: true };
+    var obsConfig = { childList: true, subtree: true };
 
     myObserver.observe(document.body, obsConfig);
     var knownFragments = {};
