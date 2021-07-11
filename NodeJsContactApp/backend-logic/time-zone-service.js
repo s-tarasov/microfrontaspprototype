@@ -1,8 +1,11 @@
-async function getTimeZone(userId) {
+async function getTimeZone(isAuthenticated) {
   console.log('Taking a break...');
   await sleep(2000);
    console.log('Two seconds later...');
-  return +5; // Челябинск
+   
+   if (isAuthenticated) 
+  		return +5; // Челябинск
+  	return 0; // Гринвич
 };
 
 function sleep(ms) {

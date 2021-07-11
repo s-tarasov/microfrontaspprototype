@@ -1,14 +1,12 @@
 (function(){
 
-  // BEGIN общая часть на клиенте и сервере
+// BEGIN общая часть на клиенте и сервере
 function getTime(tz) { 
   var d = new Date();
-  if (tz)
-  {
-    var currentTimeZoneOffsetInHours = d.getTimezoneOffset() / 60;
-    var diff = tz + currentTimeZoneOffsetInHours;
-    d = new Date(d.getTime() + diff  * 60 * 60 * 1000);
-  }
+  
+  var currentTimeZoneOffsetInHours = d.getTimezoneOffset() / 60;
+  var diff = tz + currentTimeZoneOffsetInHours;
+  d = new Date(d.getTime() + diff  * 60 * 60 * 1000);
 
   var h = (d.getHours()).toString();
   var m = (d.getMinutes()).toString();
