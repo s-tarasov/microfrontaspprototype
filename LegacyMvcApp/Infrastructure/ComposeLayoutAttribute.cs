@@ -77,14 +77,22 @@ namespace LegacyMvcApp.Infrastructure
                 var fullTag = match.Groups[0].Value;
                 var startTag = match.Groups[1].Value; // <fragment-contact-address compact-form="false">
                 var endTag = match.Groups[3].Value; // </fragment-contact-address>
-                var element = XElement.Parse(fullTag);
-                var appName = element.Name.LocalName.Split('-')[1];
-                var fragmentName = element.Name.LocalName.Split('-')[2];
-                var props = element.Attributes().ToDictionary(a => a.Name.LocalName, a => a.Value);
-                var manifest = GetFragmentManifestAsync(appName, fragmentName).GetAwaiter().GetResult();
-                AddAssetsToContext(context, manifest);
-                string innerHtml = GetFragmentHtmlAsync(manifest, props).GetAwaiter().GetResult();
-                return startTag + innerHtml + endTag;
+
+                try
+                {
+                    
+                    var element = XElement.Parse(fullTag);
+                    var appName = element.Name.LocalName.Split('-')[1];
+                    var fragmentName = element.Name.LocalName.Split('-')[2];
+                    var props = element.Attributes().ToDictionary(a => a.Name.LocalName, a => a.Value);
+                    var manifest = GetFragmentManifestAsync(appName, fragmentName).GetAwaiter().GetResult();
+                    AddAssetsToContext(context, manifest);
+                    string innerHtml = GetFragmentHtmlAsync(manifest, props).GetAwaiter().GetResult();
+                    return startTag + innerHtml + endTag;
+                }
+                catch (Exception ex) {
+                    return startTag + $"<!-- failed to load: {ex} -->" + endTag; ;
+                }
             })
                 .Replace("<!--EXTRACSS-->", string.Join("\n", context.Css.DistinctBy(k => k.Value)
                     .Select(css => $@"<link href=""{css.Value}"" type=""{css.Type}"" rel=""{css.Rel}"">")))
