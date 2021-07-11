@@ -87,7 +87,7 @@ namespace LegacyMvcApp.Infrastructure
                     var props = element.Attributes().ToDictionary(a => a.Name.LocalName, a => a.Value);
                     var manifest = GetFragmentManifestAsync(appName, fragmentName).GetAwaiter().GetResult();
                     AddAssetsToContext(context, manifest);
-                    string innerHtml = GetFragmentHtmlAsync(manifest, props).GetAwaiter().GetResult();
+                    string innerHtml = GetFragmentHtmlAsync(manifest, props, filterContext.HttpContext).GetAwaiter().GetResult();
                     return startTag + innerHtml + endTag;
                 }
                 catch (Exception ex) {
@@ -111,7 +111,7 @@ namespace LegacyMvcApp.Infrastructure
         public static readonly Dictionary<string, string> AppsMap 
             = JsonConvert.DeserializeObject<Dictionary<string, string>>(ConfigurationManager.AppSettings["AppsMap"]);
 
-        private async static Task<string> GetFragmentHtmlAsync(FragmentManifest fragmentManifest, Dictionary<string, string> props)
+        private async static Task<string> GetFragmentHtmlAsync(FragmentManifest fragmentManifest, Dictionary<string, string> props, HttpContextBase context)
         {
             var queryStringParams = HttpUtility.ParseQueryString(string.Empty);
             foreach (var prop in props)
@@ -119,7 +119,11 @@ namespace LegacyMvcApp.Infrastructure
 
             var fragmentUrl = new Uri(new Uri(fragmentManifest.AppUrl), $"{fragmentManifest.Content}/?{queryStringParams}");
 
-            return await _httpClinet.GetStringAsync(fragmentUrl).ConfigureAwait(false);
+            var request = new HttpRequestMessage(HttpMethod.Get, fragmentUrl);
+            request.Headers.TryAddWithoutValidation("X-CONTEXT", GlobalAppContext.GetContext(context));
+            var response = await _httpClinet.SendAsync(request).ConfigureAwait(false);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         }
 
 

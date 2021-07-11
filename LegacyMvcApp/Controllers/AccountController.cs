@@ -12,6 +12,7 @@ using LegacyMvcApp.Models;
 
 namespace LegacyMvcApp.Controllers
 {
+
     [Authorize]
     public class AccountController : Controller
     {

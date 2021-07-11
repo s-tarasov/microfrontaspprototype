@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -40,6 +41,9 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        window.AppContext = @Html.Raw(LegacyMvcApp.Infrastructure.GlobalAppContext.GetContext(Request.RequestContext.HttpContext))
+    </script>
     <!--EXTRAJS-->
 </body>
 </html>

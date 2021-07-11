@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace LegacyMvcApp.Controllers
 {
-    
+
     public class GatewayController : Controller
     {
         private static readonly HttpClient _httpClinet = new HttpClient();
@@ -25,8 +25,13 @@ namespace LegacyMvcApp.Controllers
         public async Task<ActionResult> Proxy(string appName, string segments)
         {
             var appUrl = ComposeLayoutAttribute.AppsMap[appName];
-            var responseBody = await _httpClinet.GetStringAsync($"{appUrl}a/{appName}/{segments}{Request.Url.Query}");
 
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{appUrl}a/{appName}/{segments}{Request.Url.Query}");
+            request.Headers.TryAddWithoutValidation("X-CONTEXT", GlobalAppContext.GetContext(HttpContext));
+            var response = await _httpClinet.SendAsync(request);
+            Response.StatusCode = (int)response.StatusCode;
+
+            var responseBody = await response.Content.ReadAsStringAsync();            
             return Content(responseBody);
         }
     }
