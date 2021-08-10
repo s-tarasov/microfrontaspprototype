@@ -1,0 +1,315 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"getTime",
+				"getTimezone\twarning"
+			],
+			[
+				"t",
+				"time-zone-service\tscript"
+			],
+			[
+				"font-s",
+				"font-size\tproperty"
+			],
+			[
+				"re",
+				"renderAddressContent\tproperty"
+			],
+			[
+				"a",
+				"address\tdirectory"
+			],
+			[
+				"req",
+				"require\twarning"
+			],
+			[
+				"se",
+				"selected\tparameter"
+			],
+			[
+				"q",
+				"query\twarning"
+			],
+			[
+				"fun",
+				"function\tkeyword"
+			],
+			[
+				"con",
+				"console\tvar"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 490.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"format",
+				"Format: Javascript"
+			],
+			[
+				"LiveReload: Enable/disable plugins",
+				"LiveReload: Enable/disable plug-ins"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"for",
+				"Format: Javascript"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"INsta",
+				"Package Control: Install Package"
+			],
+			[
+				"package ins",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/User/Documents/IRR/ConverterYandexRealty/ConverterYandexRealty/src/ru/msk/pronto/converterYRL/ParseXmlAdvert.java",
+		"/D/Development/Source/microfrontaspprototype/NodeJsContactApp/fragments/address/server.js",
+		"/D/Development/Source/microfrontaspprototype/NodeJsContactApp/api/setup.js",
+		"/D/Development/Source/microfrontaspprototype/NodeJsContactApp/backend-logic/time-zone-service.js",
+		"/D/Development/Source/microfrontaspprototype/NodeJsContactApp/assets/scripts.js",
+		"/D/Development/Source/microfrontaspprototype/NodeJsContactApp/fragments/address/setup.js",
+		"/D/Development/Source/microfrontaspprototype/NodeJsContactApp/index.js",
+		"/D/Development/Source/microfrontaspprototype/NodeJsContactApp/fragments/map/setup.js",
+		"/D/Development/Source/microfrontaspprototype/NodeJsContactApp/assets/map.js",
+		"/D/Development/Source/microfrontaspprototype/NodeJsContactApp/assets/map.css",
+		"/D/Development/Source/microfrontaspprototype/NodeJsContactApp/view.js",
+		"/D/Development/Source/microfrontaspprototype/NodeJsContactApp/assets/styles.css",
+		"/D/Development/singlespa/quick_start/root-config/src/quick-start-org-root-config.js",
+		"/D/Development/singlespa/quick_start/simple-parcel/src/root.component.js",
+		"/D/Development/singlespa/quick_start/root-config/src/index.ejs",
+		"/D/beeinterns/node_http/users/test_login",
+		"/D/beeinterns/node_http/server.js",
+		"/C/Users/User/Desktop/xml-log-filter-master/examples/java-11/src/main/java/com/skjolber/github/modules/example/module-info.java",
+		"/C/Users/User/Desktop/xml-log-filter-master/examples/java-11/src/main/java/com/skjolber/github/modules/example/TestXmlFilter.java",
+		"/D/beeinterns/node_http/index.html",
+		"/D/beeinterns/node_http/server.hello.js",
+		"/D/Development/git-lession2/repo/Readme.md",
+		"/D/Development/git-lession2/repo/programm.js",
+		"/D/Development/git-lession2/texts.md",
+		"/D/Development/git-lession/summary-3.sh",
+		"/D/Development/git-lession2/repo/README.md",
+		"/D/Development/git-lession/summary-4.sh",
+		"/D/Development/git-lession/repo/programm.js",
+		"/D/Development/git-lession/repo2/programm.js",
+		"/D/Development/git-lession/1/repo/programm.js",
+		"/D/Development/git-lession/2/summary.sh",
+		"/D/Development/git-lession/1/summary.sh",
+		"/D/Development/git-example.sh",
+		"/C/Users/User/Desktop/127.txt",
+		"/D/Development/Source/SerialsCalendar/Deploy/build_up.sh",
+		"/D/Development/Source/SerialsCalendar/Deploy/appsettings.Production.json",
+		"/D/Development/Source/SerialsCalendar/src/Calendar.Web/appsettings.Development.json",
+		"/D/Development/vagrant/dnx/Vagrantfile",
+		"/D/Development/Source/SerialsCalendar/Deploy/Dockerfile",
+		"/D/Development/Source/SerialsCalendar/Deploy/build_container.sh",
+		"/D/Development/Source/SerialsCalendar/Deploy/.dockerignore",
+		"/D/Development/Source/SerialsCalendarFront/app.js",
+		"/D/Development/Source/SerialsCalendarFront/components/search-serial.js",
+		"/D/Development/Source/SerialsCalendarFront/utils.js",
+		"/D/Development/Source/SerialsCalendarFront/api.js",
+		"/D/Development/Source/SerialsCalendarFront/Index.html",
+		"/D/Development/Source/SerialsCalendarFront/search-serial.js",
+		"/D/Development/Source/SerialsCalendarFront/feed-link.js",
+		"/C/Users/User/Documents/Visual Studio 2017/Projects/EpisondarFront/src/store/Hello.ts",
+		"/C/Users/User/Documents/Visual Studio 2017/Projects/EpisondarFront/src/store/actions.ts",
+		"/C/Users/User/Documents/Visual Studio 2017/Projects/EpisondarFront/src/index.tsx",
+		"/C/Users/User/Documents/Visual Studio 2017/Projects/EpisondarFront/src/components/Hello.tsx",
+		"/C/Users/User/Documents/Visual Studio 2017/Projects/EpisondarFront/src/store/reducers.ts",
+		"/D/Development/CalendarFront/Index.html",
+		"/D/Development/vagrant/dnx/aspnetexample/Dockerfile",
+		"/D/Development/Source/SerialsCalendar/Deploy/deploy.sh",
+		"/D/Development/Source/SerialsCalendar/Deploy/build-up.sh",
+		"/D/Development/Source/SerialsCalendar/src/Calendar.Web/Startup.cs",
+		"/D/Development/Source/SerialsCalendar/src/Calendar.Web/App_Start/ApplicationConfiguration.cs",
+		"/D/Development/Source/SerialsCalendar/.gitignore",
+		"/D/Development/Source/SerialsCalendar/src/Calendar.Web/appsettings.json",
+		"/D/Development/vagrant/dnx/aspnetexample/Startup.cs",
+		"/D/Development/vagrant/dnx/aspnetexample/appsettings.json",
+		"/D/Development/vagrant/dnx/aspnetexample/Views/Home/Index.cshtml",
+		"/D/Development/Source/SerialsCalendar/.dockerignore",
+		"/D/Development/vagrant/dnx/aspnetexample/build-up.sh",
+		"/D/Development/Source/SerialsCalendar/src/Calendar.Web/Program.cs",
+		"/D/Development/Source/SerialsCalendar/src/Calendar.Web/appSettings.json"
+	],
+	"find":
+	{
+		"height": 27.0
+	},
+	"find_in_files":
+	{
+		"height": 117.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"коттедж",
+			"timepadding",
+			"utcoffset",
+			"XmlFilter",
+			"card",
+			"serials"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 40.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "Solution.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 269.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 670.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 281.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
